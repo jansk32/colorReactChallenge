@@ -20,7 +20,10 @@ function App() {
           backgroundColor: `rgb(${r},${g},${b})`,
           display: "inline-flex",
           },
-          index: j
+          index: j,
+          red: r,
+          green: g,
+          blue: b
         }
         j+= 1;
         newRow.push(grid)
@@ -37,27 +40,32 @@ function App() {
     // setStyles(l)
   },[])
 
-  function getRandom(max) {
-    return Math.floor(Math.random() * max)
+  function getRandom(max, min) {
+    return Math.floor(Math.random() * (max- min) + min) 
   }
 
+  // swapping array, keeps the number of rows the same
   function swapArr(array1, ind1, ind2) {
     let tmpVal = array1[ind1]
     array1[ind1] = array1[ind2]
     array1[ind2] = tmpVal
   }
 
+  // To alter rows of colors
   function reGroupColorRows(arr){
     var tmpArr = []
     for (let i = 0; i< arr.length; i++){
       var newArr = []
       for (let j = 0; j < arr[i].length; j++){
-          var x1 = getRandom(arr[i].length)
-          var x2 = getRandom(arr[i].length)
-          // let tmpVal = arr[i][x1]
-          // arr[i][x1] = arr[i][x2]
-          // arr[i][x2] = tmpVal
-          swapArr(arr[i],x1,x2)
+          let styleProp = arr[i][j]
+          var x1 = j
+          var x2 = getRandom(arr[i].length, j)
+
+          if (styleProp.blue === 24 || styleProp.red === 24){
+            console.log("here")
+            swapArr(arr[i], x1,x2)
+          }
+          
           newArr = arr[i]
       }
       tmpArr.push(newArr)
@@ -70,7 +78,7 @@ function App() {
       {styles.map((row) => 
         <div style={{marginTop: "0px"}}>
           {row.map((col) => 
-            <div style={col.style} key={col.index}> </div>
+            <div style={col.style} key={col.index}>{col.blue}</div>
           )}
         </div>
       )}
