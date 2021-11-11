@@ -7,16 +7,16 @@ function App() {
   useEffect(() => {
     var l = []
     var j = 0
-    for (let r = 0; r < 256; r+= 8){
+    for (let r = 8; r <= 256; r+= 8){
       var newRow = []
-      for (let g = 0; g < 256; g += 8 ){
-        for (let b = 0; b < 256; b+= 8 ){
+      for (let g = 8; g <= 256; g += 8 ){
+        for (let b = 8; b <= 256; b+= 8 ){
           var grid ={
           style : {
-          // height: "5px",
-          // width: "5px",
-          height: "20px",
-          width: "40px",
+          height: "10px",
+          width: "10px",
+          // height: "20px",
+          // width: "40px",
           backgroundColor: `rgb(${r},${g},${b})`,
           display: "inline-flex",
           },
@@ -56,29 +56,31 @@ function App() {
     var tmpArr = []
     for (let i = 0; i< arr.length; i++){
       var newArr = []
-      for (let j = 0; j < arr[i].length; j++){
-          let styleProp = arr[i][j]
-          var x1 = j
-          var x2 = getRandom(arr[i].length, j)
+      var x2 = getRandom(arr.length, i)
+      swapArr(arr, i, x2)
+      newArr = arr[i]
+      // for (let j = 0; j < arr[i].length; j++){
+      //     let styleProp = arr[i][j]
+      //     // var x1 = j
+      //     // var x2 = getRandom(arr[i].length, j)
 
-          if (styleProp.blue === 24 || styleProp.red === 24){
-            console.log("here")
-            swapArr(arr[i], x1,x2)
-          }
+      //     // if (styleProp.blue === 24 || styleProp.red === 24){
+      //     //   swapArr(arr[i], x1,x2)
+      //     // }
           
-          newArr = arr[i]
-      }
+      //     newArr = arr[i]
+      // }
       tmpArr.push(newArr)
     }
     setStyles(tmpArr)
   }
 
   return (
-    <div style={{height: "640px", width: "1280px", paddingLeft:"5%"}}>
+    <div style={{height: "640px !important", width: "1280px", paddingLeft:"5%"}}>
       {styles.map((row) => 
         <div style={{marginTop: "0px"}}>
           {row.map((col) => 
-            <div style={col.style} key={col.index}>{col.blue}</div>
+            <div style={col.style} key={col.index}></div>
           )}
         </div>
       )}
