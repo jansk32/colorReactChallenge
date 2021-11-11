@@ -4,6 +4,7 @@ function App() {
 
   var [styles, setStyles] = useState([])
 
+  // producing all 32768 unique colors
   useEffect(() => {
     var l = []
     var j = 0
@@ -14,11 +15,11 @@ function App() {
           var grid ={
           style : {
           height: "10px",
-          width: "10px",
-          // height: "20px",
-          // width: "40px",
+          width: "1px",
           backgroundColor: `rgb(${r},${g},${b})`,
           display: "inline-flex",
+          paddingTop: "0px",
+          marginTop: "0px"
           },
           index: j,
           red: r,
@@ -37,6 +38,7 @@ function App() {
     // setStyles(l)
   },[])
 
+  // get random number
   function getRandom(max, min) {
     return Math.floor(Math.random() * (max- min) + min) 
   }
@@ -60,15 +62,18 @@ function App() {
     var tmpArr = []
     for (let i = 0; i< arr.length; i++){
       var newArr = []
-      for (let j = 0; j < arr[i].length; j++){
+      for (let j = 0; j < arr[i].length /2; j++){
           let styleProp = arr[i][j]
           var x1 = j
 
-          if (styleProp.blue % 6 === 4){
+          if ((styleProp.red / 8 <= 16)|| (styleProp.green  / 8 < 5 || styleProp.blue / 8 < 5)){
             swapColorsInArr(arr[i], arr[(arr.length - i  -1 )], i, j, j )
           }
 
-          if (  styleProp.red / 8 === 4 ){
+
+
+
+          if (  styleProp.red / 8 <= 16){
             var ind2 = arr[i].length - j - 1
             // console.log(x1, ind2)
             swapArr(arr[i],x1,ind2)
