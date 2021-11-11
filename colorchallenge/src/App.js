@@ -33,18 +33,25 @@ function App() {
     // l.concat(blue)
     // l.concat(green)
     // l.concat(red)
-    // reGroupColorRows(l)
-    setStyles(l)
+    reGroupColorRows(l)
+    // setStyles(l)
   },[])
 
-  
+  function getRandom(max) {
+    return Math.floor(Math.random() * max)
+  }
 
   function reGroupColorRows(arr){
     var tmpArr = []
     for (let i = 0; i< arr.length; i++){
       var newArr = []
       for (let j = 0; j < arr[i].length; j++){
-          newArr.push(arr[i][j])
+          var x1 = getRandom(arr[i].length)
+          var x2 = getRandom(arr[i].length)
+          let tmpVal = arr[i][x1]
+          arr[i][x1] = arr[i][x2]
+          arr[i][x2] = tmpVal
+          newArr = arr[i]
       }
       tmpArr.push(newArr)
     }
