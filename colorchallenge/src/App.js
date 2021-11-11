@@ -33,9 +33,6 @@ function App() {
       l.push(newRow)
 
     }
-    // l.concat(blue)
-    // l.concat(green)
-    // l.concat(red)
     reGroupColorRows(l)
     // setStyles(l)
   },[])
@@ -51,25 +48,34 @@ function App() {
     array1[ind2] = tmpVal
   }
 
+  // swap colors in 2 different arrays
+  function swapColorsInArr(arr1, arr2, indArr1, indArr2){
+      var tmpArr = arr1[indArr1]
+      arr1[indArr1] = arr2[indArr2]
+      arr2[indArr2] = tmpArr
+  }
+
   // To alter rows of colors
   function reGroupColorRows(arr){
     var tmpArr = []
     for (let i = 0; i< arr.length; i++){
       var newArr = []
-      var x2 = getRandom(arr.length, i)
-      swapArr(arr, i, x2)
-      newArr = arr[i]
-      // for (let j = 0; j < arr[i].length; j++){
-      //     let styleProp = arr[i][j]
-      //     // var x1 = j
-      //     // var x2 = getRandom(arr[i].length, j)
+      for (let j = 0; j < arr[i].length; j++){
+          let styleProp = arr[i][j]
+          var x1 = j
 
-      //     // if (styleProp.blue === 24 || styleProp.red === 24){
-      //     //   swapArr(arr[i], x1,x2)
-      //     // }
-          
-      //     newArr = arr[i]
-      // }
+          if (styleProp.blue % 6 === 4){
+            swapColorsInArr(arr[i], arr[(arr.length - i  -1 )], i, j, j )
+          }
+
+          if (  styleProp.red / 8 === 4 ){
+            var ind2 = arr[i].length - j - 1
+            // console.log(x1, ind2)
+            swapArr(arr[i],x1,ind2)
+          }
+
+          newArr = arr[i]
+      }
       tmpArr.push(newArr)
     }
     setStyles(tmpArr)
